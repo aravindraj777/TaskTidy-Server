@@ -4,6 +4,7 @@ import com.buildlive.todoKotlinBack.dto.TodoDTO
 import com.buildlive.todoKotlinBack.model.Todo
 import com.buildlive.todoKotlinBack.repository.ITodoRepository
 import com.buildlive.todoKotlinBack.utils.ULIDGenerator
+import com.github.f4b6a3.ulid.UlidCreator
 import org.springframework.beans.BeanUtils
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
@@ -22,7 +23,7 @@ class TodoController(private val todoRepository: ITodoRepository) {
     fun createTodo(@RequestBody todoDTO: TodoDTO):Todo{
         println(todoDTO)
         val todo = Todo(
-            id = ULIDGenerator.generate(), // ULID will be generated automatically in the entity constructor
+            id = UlidCreator.getUlid().toString(), // ULID will be generated automatically in the entity constructor
             title = todoDTO.title, // These fields will be replaced using BeanUtils
             createdAt = todoDTO.createdAt,
             isCompleted = false // Temporary defaults to enable BeanUtils.copyProperties
